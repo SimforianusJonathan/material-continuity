@@ -1,0 +1,10 @@
+[
+  {
+    "material_id": "MAT-BRG-001",
+    "description": "Assembly bearing, 25 mm bore",
+    "current_stock": 320,
+    "allocated_quantity": 10,
+    "quality_hold_quantity": 10,
+    "unit": "EA"
+  }
+]

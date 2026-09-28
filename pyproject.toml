@@ -1,0 +1,9 @@
+[project]
+name = "material-continuity"
+version = "0.1.0"
+description = "Evidence-bound manufacturing material recovery workflow"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.unittest]
+start-directory = "tests"

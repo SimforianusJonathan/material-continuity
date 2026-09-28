@@ -1,0 +1,18 @@
+[
+  {
+    "po_id": "PO-ORIGINAL-001",
+    "material_id": "MAT-BRG-001",
+    "supplier_id": "SUP-ORIGINAL",
+    "quantity": 1000,
+    "expected_delivery": "2026-10-20",
+    "status": "CONFIRMED"
+  },
+  {
+    "po_id": "PO-ORIGINAL-002",
+    "material_id": "MAT-BRG-001",
+    "supplier_id": "SUP-ORIGINAL",
+    "quantity": 200,
+    "expected_delivery": "2026-10-03",
+    "status": "DELAYED"
+  }
+]

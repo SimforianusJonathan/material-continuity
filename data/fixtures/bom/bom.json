@@ -1,0 +1,18 @@
+[
+  {
+    "product_id": "ASSEMBLY-A",
+    "material_id": "MAT-BRG-001",
+    "quantity_required": 2,
+    "bom_revision": "A",
+    "valid_from": "2026-01-01",
+    "valid_to": null
+  },
+  {
+    "product_id": "ASSEMBLY-B",
+    "material_id": "MAT-BRG-001",
+    "quantity_required": 1,
+    "bom_revision": "B",
+    "valid_from": "2026-01-01",
+    "valid_to": null
+  }
+]
