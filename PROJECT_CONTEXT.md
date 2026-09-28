@@ -1739,11 +1739,11 @@ Recommended sequence:
 
 ## Phase 8 — Action Adapter
 
-- [ ] Implement `createQualificationTask`.
-- [ ] Generate mock QMS identifier.
-- [ ] Record action receipt.
-- [ ] Prevent duplicate action.
-- [ ] Keep production release blocked.
+- [x] Implement `createQualificationTask`.
+- [x] Generate mock QMS identifier.
+- [x] Record action receipt.
+- [x] Prevent duplicate action.
+- [x] Keep production release blocked.
 
 ## Phase 9 — UI
 
@@ -1791,7 +1791,7 @@ Project phase: LOCAL CONTROLLED ACTION PATH
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL GATE COMPLETE / action adapter next; AWS access blocked
+Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL/ACTION PATH COMPLETE / AWS evidence pipeline blocked
 ```
 
 ## Progress table
@@ -1811,7 +1811,7 @@ Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL
 | Recovery simulation | DONE | Deterministic timing, quantity coverage, order exposure, cost, unresolved conditions, and non-authorization across three canonical scenarios; 8 dedicated tests pass |
 | Recovery-case versioning | DONE | Immutable typed snapshots, canonical SHA-256 hash chain, no-op detection, source-change increments, and version-bound approval/action storage; 9 dedicated tests pass |
 | Approval gate | DONE | Typed principals/roles/actions; fail-closed identity, scope, expiry, case version/hash, source freshness, and idempotency validation; 11 dedicated tests pass |
-| Action adapter | TODO | P0/P1 |
+| Action adapter | DONE | Approval-gated mock QMS qualification task, deterministic identifier, version-bound receipt, duplicate-write prevention, and explicit production-release block; 9 dedicated tests pass |
 | AWS access validation | BLOCKED | Local validation attempted 2026-09-29; AWS CLI/SDK, Region, credentials/profile, and resource IDs are unavailable |
 | S3 document corpus | BLOCKED | Twelve local PDFs and deterministic manifest are ready; S3 upload requires hackathon AWS access |
 | Bedrock Knowledge Base | TODO | P1 |
@@ -1827,6 +1827,29 @@ Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Approval-gated mock action adapter
+
+### Completed
+
+- Added a typed `createQualificationTask` command and structured result for the mock QMS action boundary.
+- Required a current `AUTHORIZED` approval-gate decision before any mock write occurs.
+- Restricted task creation to a known candidate with a requirement represented in its qualification plan; hard-rejected Candidate B fails closed.
+- Generated deterministic mock QMS and action identifiers from case, candidate, requirement, and idempotency-key content.
+- Appended a version/hash-bound action receipt without incrementing the decision-case version.
+- Blocked duplicate execution before a second receipt can be created while preserving the first receipt for audit.
+- Kept qualification-task creation explicitly separate from material release; every result returns `production_release_authorized: false`.
+- Added eight unit tests and one canonical integration test covering success, deterministic IDs, stale/expired approval, hard mismatch, invalid plan target, wrong action type, and duplicate execution.
+- Verified all 78 repository tests pass.
+
+### Next recommended action
+
+1. obtain/configure read-only hackathon AWS access, Region, and resource identifiers;
+2. upload the verified document corpus to S3;
+3. create the Bedrock Knowledge Base and validate document revision/page retrieval;
+4. connect retrieved structured evidence to deterministic comparison before implementing the Evidence Specialist.
+
+---
 
 ## 2026-09-29 — Deterministic approval gate
 
@@ -2462,7 +2485,7 @@ If a P2/P3 feature threatens P0 completeness, defer it.
 - [x] Approval expiry enforced.
 - [x] Stale approvals fail closed.
 - [x] Duplicate writes blocked.
-- [ ] Action receipt logged.
+- [x] Action receipt logged.
 - [ ] Tool errors bounded.
 - [ ] Retrieval retries bounded.
 - [ ] Missing sources escalate to human review.
@@ -2904,11 +2927,10 @@ Configure read-only hackathon AWS access, validate Region and service availabili
 then upload the verified twelve-document corpus and test revision/page provenance.
 ```
 
-While AWS access remains blocked, continue the local P0 path without changing the architecture:
+While AWS access remains blocked, preserve the completed local P0 path without changing the architecture:
 
 ```text
-action adapter
-→ evidence pipeline retrieval when AWS access is available
+evidence pipeline retrieval when AWS access is available
 → Evidence Specialist
 → Recovery Supervisor
 → UI
