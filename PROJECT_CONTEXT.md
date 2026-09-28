@@ -1729,13 +1729,13 @@ Recommended sequence:
 
 ## Phase 7 — Approval Gate
 
-- [ ] Define roles.
-- [ ] Define allowed actions by role.
-- [ ] Implement case hash.
-- [ ] Implement approval expiry.
-- [ ] Implement stale-case detection.
-- [ ] Implement source-freshness check.
-- [ ] Implement idempotency.
+- [x] Define roles.
+- [x] Define allowed actions by role.
+- [x] Implement case hash.
+- [x] Implement approval expiry.
+- [x] Implement stale-case detection.
+- [x] Implement source-freshness check.
+- [x] Implement idempotency.
 
 ## Phase 8 — Action Adapter
 
@@ -1787,11 +1787,11 @@ Update this section after every meaningful work session.
 ## Overall status
 
 ```text
-Project phase: LOCAL EVIDENCE PIPELINE
+Project phase: LOCAL CONTROLLED ACTION PATH
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE + LOCAL DOCUMENT CORPUS COMPLETE / AWS access blocked
+Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL GATE COMPLETE / action adapter next; AWS access blocked
 ```
 
 ## Progress table
@@ -1810,7 +1810,7 @@ Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE + LOCAL DOCUMENT CO
 | Qualification graph | DONE | Validated DAG, sequential/parallel scheduling, timezone-aware resource calendars, critical path, and unresolved timing propagation; Candidate A completes 2026-10-07T02:00Z |
 | Recovery simulation | DONE | Deterministic timing, quantity coverage, order exposure, cost, unresolved conditions, and non-authorization across three canonical scenarios; 8 dedicated tests pass |
 | Recovery-case versioning | DONE | Immutable typed snapshots, canonical SHA-256 hash chain, no-op detection, source-change increments, and version-bound approval/action storage; 9 dedicated tests pass |
-| Approval gate | TODO | P0 |
+| Approval gate | DONE | Typed principals/roles/actions; fail-closed identity, scope, expiry, case version/hash, source freshness, and idempotency validation; 11 dedicated tests pass |
 | Action adapter | TODO | P0/P1 |
 | AWS access validation | BLOCKED | Local validation attempted 2026-09-29; AWS CLI/SDK, Region, credentials/profile, and resource IDs are unavailable |
 | S3 document corpus | BLOCKED | Twelve local PDFs and deterministic manifest are ready; S3 upload requires hackathon AWS access |
@@ -1827,6 +1827,28 @@ Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE + LOCAL DOCUMENT CO
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Deterministic approval gate
+
+### Completed
+
+- Added typed authenticated principals, approver roles, controlled actions, approval decisions, and explicit block reasons.
+- Defined least-privilege role policy: Engineering and Quality may authorize qualification-task creation; Production Planning may authorize resequencing; no production-release action is exposed.
+- Implemented fail-closed approval validation for exact approver identity, role/action scope, activation and expiry windows, current case version/hash, live source-version state, and unused idempotency key.
+- Kept expected authorization failures as structured `BLOCKED` decisions while rejecting malformed requests such as naive timestamps and duplicate source IDs.
+- Added direct source-freshness comparison that detects changed, added, or missing source versions before an action is attempted.
+- Added ten unit tests and one canonical integration test.
+- Demonstrated that a valid qualification-task approval becomes blocked after Candidate A evidence advances from revision 2 to revision 3.
+- Verified all 69 repository tests pass.
+
+### Next recommended action
+
+1. implement the mock `createQualificationTask` action adapter;
+2. require an `AUTHORIZED` approval-gate decision before the write;
+3. generate a deterministic mock QMS identifier, append the action receipt, and keep production release blocked;
+4. preserve idempotent replay behavior and test duplicate execution.
+
+---
 
 ## 2026-09-29 — Synthetic evidence document corpus
 
@@ -2435,11 +2457,11 @@ If a P2/P3 feature threatens P0 completeness, defer it.
 - [ ] No unrestricted procurement tool.
 - [ ] No unrestricted BOM release tool.
 - [ ] Retrieved content is data, not authorization.
-- [ ] Approval tied to case version.
-- [ ] Approval tied to action scope.
-- [ ] Approval expiry enforced.
-- [ ] Stale approvals fail closed.
-- [ ] Duplicate writes blocked.
+- [x] Approval tied to case version.
+- [x] Approval tied to action scope.
+- [x] Approval expiry enforced.
+- [x] Stale approvals fail closed.
+- [x] Duplicate writes blocked.
 - [ ] Action receipt logged.
 - [ ] Tool errors bounded.
 - [ ] Retrieval retries bounded.
@@ -2885,8 +2907,7 @@ then upload the verified twelve-document corpus and test revision/page provenanc
 While AWS access remains blocked, continue the local P0 path without changing the architecture:
 
 ```text
-approval gate
-→ action adapter
+action adapter
 → evidence pipeline retrieval when AWS access is available
 → Evidence Specialist
 → Recovery Supervisor
