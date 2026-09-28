@@ -1,0 +1,38 @@
+[
+  {
+    "procedure_id": "QUAL-TEMP-001",
+    "requirement_id": "REQ-LUBE-TEMP-001",
+    "name": "Lubricant temperature qualification test",
+    "source_document": "Qualification_SOP_Temperature.pdf",
+    "source_revision": "2",
+    "source_pages": "1-3",
+    "source_location": "Purpose, method, and acceptance criteria",
+    "duration_hours": 16,
+    "required_resource": "LAB-TEMPERATURE",
+    "applicability": "HIGH-TEMP-LUBRICATION"
+  },
+  {
+    "procedure_id": "QUAL-LOAD-001",
+    "requirement_id": "REQ-LOAD-001",
+    "name": "Bearing load verification",
+    "source_document": "Qualification_SOP_Load.pdf",
+    "source_revision": "1",
+    "source_pages": "1-3",
+    "source_location": "Purpose, method, and acceptance criteria",
+    "duration_hours": 8,
+    "required_resource": "LAB-LOAD",
+    "applicability": "BEARING-SEAT-25MM"
+  },
+  {
+    "procedure_id": "QUAL-RELEASE-001",
+    "requirement_id": "REQ-RELEASE-001",
+    "name": "Plant-A alternative material release review",
+    "source_document": "Quality_Release_Procedure.pdf",
+    "source_revision": "3",
+    "source_pages": "2-3",
+    "source_location": "Release prerequisites and action boundary",
+    "duration_hours": 4,
+    "required_resource": "QUALITY-REVIEW",
+    "applicability": "PLANT-A"
+  }
+]

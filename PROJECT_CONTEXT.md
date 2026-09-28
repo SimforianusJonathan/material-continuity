@@ -1709,14 +1709,14 @@ Recommended sequence:
 
 ## Phase 5 — Evidence Specialist
 
-- [ ] Define system prompt / role.
-- [ ] Define structured output schema.
-- [ ] Add retrieval tool.
-- [ ] Add requirement-mapping workflow.
-- [ ] Add evidence-gap detection.
-- [ ] Add qualification-procedure retrieval.
-- [ ] Test with Candidate A.
-- [ ] Test with Candidate B.
+- [x] Define system prompt / role.
+- [x] Define structured output schema.
+- [x] Add retrieval tool interface and local mock adapter.
+- [x] Add requirement-mapping workflow.
+- [x] Add evidence-gap detection.
+- [x] Add qualification-procedure retrieval.
+- [x] Test with Candidate A.
+- [x] Test with Candidate B.
 
 ## Phase 6 — Recovery Supervisor
 
@@ -1788,11 +1788,11 @@ Update this section after every meaningful work session.
 ## Overall status
 
 ```text
-Project phase: LOCAL CONTROLLED ACTION PATH
+Project phase: LOCAL AGENT WORKFLOW
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: LOCAL DETERMINISTIC WORKFLOW + DOCUMENT CORPUS + EVIDENCE CONTRACT + APPROVAL/ACTION PATH COMPLETE / AWS retrieval blocked
+Implementation: LOCAL DETERMINISTIC WORKFLOW + MOCK-BACKED EVIDENCE SPECIALIST + APPROVAL/ACTION PATH COMPLETE / Recovery Supervisor next; AWS retrieval blocked
 ```
 
 ## Progress table
@@ -1817,7 +1817,7 @@ Implementation: LOCAL DETERMINISTIC WORKFLOW + DOCUMENT CORPUS + EVIDENCE CONTRA
 | S3 document corpus | BLOCKED | Twelve local PDFs and deterministic manifest are ready; S3 upload requires hackathon AWS access |
 | Bedrock Knowledge Base | TODO | P1 |
 | Evidence pipeline contract | DONE | Typed extraction boundary preserves provenance, excludes unsupported claims, and feeds the deterministic comparison engine; 8 dedicated tests pass |
-| Evidence Specialist | TODO | P1 |
+| Evidence Specialist | LOCAL DONE | Guardrailed role prompt, typed output, replaceable retrieval interface, fixture-backed adapter, requirement mapping, gap/procedure detection, and Candidate A/B branches; live Bedrock adapter pending |
 | Recovery Supervisor | TODO | P1 |
 | UI | TODO | P1 |
 | EventBridge | TODO | P2 |
@@ -1829,6 +1829,31 @@ Implementation: LOCAL DETERMINISTIC WORKFLOW + DOCUMENT CORPUS + EVIDENCE CONTRA
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Mock-backed Evidence Specialist
+
+### Completed
+
+- Added the Evidence Specialist package with an explicit role prompt that preserves the boundary: retrieve and interpret evidence, use deterministic tools for comparison, and never authorize release.
+- Added typed investigation requests, structured results, evidence gaps, qualification-procedure references, and retrieval traces.
+- Added a replaceable retrieval protocol so the local mock adapter can later be exchanged for Bedrock Knowledge Base retrieval without changing the workflow contract.
+- Added fixture-backed candidate evidence and qualification-procedure retrieval aligned to the PDF corpus revisions and pages.
+- Reused the structured evidence pipeline and deterministic comparison engine for all requirement decisions and unit logic.
+- Implemented gap detection for `UNKNOWN` and `BLOCKED` requirements and linked relevant qualification procedures.
+- Stopped procedure lookup for a candidate with a hard mismatch so qualification cannot be presented as a cure for dimensional incompatibility.
+- Verified Candidate A returns the lubricant-temperature and release gaps with the correct procedures.
+- Verified Candidate B is rejected for `REQ-BORE-001` and does not proceed to qualification-procedure retrieval.
+- Added five unit tests and one canonical integration test.
+- Verified all 92 repository tests pass.
+
+### Next recommended action
+
+1. implement the Recovery Supervisor against the completed local tool interfaces;
+2. exhaust approved recovery options before invoking the Evidence Specialist;
+3. preserve recovery-case state and call deterministic simulation/qualification outputs rather than recalculating them;
+4. produce a structured recovery summary for the local end-to-end demo.
+
+---
 
 ## 2026-09-29 — Structured evidence pipeline contract
 
