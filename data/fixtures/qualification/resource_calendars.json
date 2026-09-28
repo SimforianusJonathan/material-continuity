@@ -1,0 +1,26 @@
+[
+  {
+    "resource_id": "LAB-TEMPERATURE",
+    "timezone": "Asia/Jakarta",
+    "working_weekdays": [0, 1, 2, 3, 4],
+    "workday_start": "08:00:00",
+    "workday_end": "16:00:00",
+    "unavailable_dates": []
+  },
+  {
+    "resource_id": "ENGINEERING-REVIEW",
+    "timezone": "Asia/Jakarta",
+    "working_weekdays": [0, 1, 2, 3, 4],
+    "workday_start": "08:00:00",
+    "workday_end": "16:00:00",
+    "unavailable_dates": []
+  },
+  {
+    "resource_id": "QUALITY-REVIEW",
+    "timezone": "Asia/Jakarta",
+    "working_weekdays": [0, 1, 2, 3, 4],
+    "workday_start": "08:00:00",
+    "workday_end": "16:00:00",
+    "unavailable_dates": []
+  }
+]

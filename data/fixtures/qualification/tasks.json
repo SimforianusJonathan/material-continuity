@@ -1,0 +1,62 @@
+[
+  {
+    "task_id": "TASK-A-DELIVERY",
+    "candidate_id": "CAND-A",
+    "name": "Candidate A delivery",
+    "task_type": "DELIVERY",
+    "duration_hours": 0,
+    "predecessor_ids": [],
+    "required_resource": null,
+    "earliest_start": "2026-10-02T02:00:00+00:00",
+    "requirement_id": null,
+    "source_reference": "supplier-fixture:CAND-AVAIL-A"
+  },
+  {
+    "task_id": "TASK-A-TEMP-TEST",
+    "candidate_id": "CAND-A",
+    "name": "Lubricant temperature qualification test",
+    "task_type": "TEST",
+    "duration_hours": 16,
+    "predecessor_ids": ["TASK-A-DELIVERY"],
+    "required_resource": "LAB-TEMPERATURE",
+    "earliest_start": null,
+    "requirement_id": "REQ-LUBE-TEMP-001",
+    "source_reference": "procedure-fixture:QUAL-TEMP-001"
+  },
+  {
+    "task_id": "TASK-A-ENGINEERING-REVIEW",
+    "candidate_id": "CAND-A",
+    "name": "Engineering evidence review",
+    "task_type": "ENGINEERING_REVIEW",
+    "duration_hours": 4,
+    "predecessor_ids": ["TASK-A-TEMP-TEST"],
+    "required_resource": "ENGINEERING-REVIEW",
+    "earliest_start": null,
+    "requirement_id": "REQ-LUBE-TEMP-001",
+    "source_reference": "workflow-fixture:ENGINEERING-REVIEW"
+  },
+  {
+    "task_id": "TASK-A-QUALITY-REVIEW",
+    "candidate_id": "CAND-A",
+    "name": "Quality qualification review",
+    "task_type": "QUALITY_REVIEW",
+    "duration_hours": 4,
+    "predecessor_ids": ["TASK-A-ENGINEERING-REVIEW"],
+    "required_resource": "QUALITY-REVIEW",
+    "earliest_start": null,
+    "requirement_id": "REQ-RELEASE-001",
+    "source_reference": "workflow-fixture:QUALITY-REVIEW"
+  },
+  {
+    "task_id": "TASK-A-QUALIFICATION-RELEASE",
+    "candidate_id": "CAND-A",
+    "name": "Qualification release recorded",
+    "task_type": "RELEASE",
+    "duration_hours": 0,
+    "predecessor_ids": ["TASK-A-QUALITY-REVIEW"],
+    "required_resource": null,
+    "earliest_start": null,
+    "requirement_id": "REQ-RELEASE-001",
+    "source_reference": "workflow-fixture:QUALIFICATION-RELEASE"
+  }
+]

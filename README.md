@@ -12,6 +12,8 @@ discovery that exhausts approved paths before surfacing unqualified candidates.
 Structured candidate evidence can also be compared deterministically against
 application requirements with revision, applicability, unit, and provenance
 checks.
+Candidate qualification dependencies can be scheduled against explicit resource
+calendars to distinguish supplier arrival from actual production readiness.
 
 ## Requirements
 
@@ -35,6 +37,12 @@ python -m core.recovery_options --material MAT-BRG-001 --required-quantity 700 -
 ```powershell
 python -m core.requirements --candidate CAND-A
 python -m core.requirements --candidate CAND-B
+```
+
+## Build the qualification graph
+
+```powershell
+python -m core.qualification --candidate CAND-A
 ```
 
 ## Run tests

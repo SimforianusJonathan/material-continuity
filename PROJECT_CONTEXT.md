@@ -1662,7 +1662,7 @@ Recommended sequence:
 - [x] Define 2 BOMs.
 - [x] Define 10 production orders.
 - [x] Define supplier availability.
-- [ ] Define qualification test calendar.
+- [x] Define qualification test calendar.
 - [ ] Define 12 documents.
 
 ## Phase 2 — Deterministic Core
@@ -1675,7 +1675,7 @@ Recommended sequence:
 - [x] Unit-test MATCH.
 - [x] Unit-test MISMATCH.
 - [x] Unit-test UNKNOWN.
-- [ ] Implement qualification dependency graph.
+- [x] Implement qualification dependency graph.
 - [ ] Implement `simulateRecovery`.
 - [ ] Compare three recovery scenarios.
 
@@ -1786,7 +1786,7 @@ Project phase: LOCAL DETERMINISTIC CORE
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON COMPLETE / qualification graph next
+Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON + QUALIFICATION GRAPH COMPLETE / recovery simulation next
 ```
 
 ## Progress table
@@ -1798,11 +1798,11 @@ Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON COMPLETE 
 | GitHub organization strategy | DONE | One org |
 | Repository strategy | DONE | One monorepo |
 | Canonical demo flow | DEFINED | Based on proposal acceptance scenario |
-| Synthetic dataset | IN PROGRESS | Material, stock, 2 BOMs, 10 production orders, delayed receipt, Candidate A/B/C, approved paths, suppliers, fallbacks, engineering requirements, and candidate evidence defined; qualification calendar and document corpus remain |
+| Synthetic dataset | IN PROGRESS | Material, stock, 2 BOMs, 10 production orders, delayed receipt, Candidate A/B/C, approved paths, suppliers, fallbacks, requirements, evidence, qualification tasks, and resource calendars defined; document corpus remains |
 | Deterministic exposure engine | DONE | Typed dependency-free Python engine, JSON loader, CLI, and 10 passing tests; canonical shortage is 2026-10-04 |
 | Recovery option discovery | DONE | Ordered deterministic search covers network stock through resequencing; approved sufficiency stops candidate escalation; 6 dedicated tests pass |
 | Requirement comparison | DONE | Typed evidence/provenance, deterministic unit conversion, revision/applicability checks, MATCH/MISMATCH/UNKNOWN/BLOCKED, and canonical Candidate A/B decisions; 14 dedicated tests pass |
-| Qualification graph | TODO | P0 |
+| Qualification graph | DONE | Validated DAG, sequential/parallel scheduling, timezone-aware resource calendars, critical path, and unresolved timing propagation; Candidate A completes 2026-10-07T02:00Z |
 | Recovery simulation | TODO | P0 |
 | Recovery-case versioning | TODO | P0 |
 | Approval gate | TODO | P0 |
@@ -1822,6 +1822,38 @@ Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON COMPLETE 
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Qualification dependency graph
+
+### Completed
+
+- Added Candidate A qualification task fixtures linking the missing lubricant-temperature evidence to:
+  - candidate delivery;
+  - temperature qualification test;
+  - Engineering review;
+  - Quality review;
+  - qualification release.
+- Added timezone-aware resource-calendar fixtures for the temperature lab, Engineering, and Quality.
+- Implemented deterministic qualification DAG validation and topological scheduling.
+- Implemented sequential and parallel task scheduling across working days, work-hour windows, weekends, and unavailable dates.
+- Implemented critical-path derivation without losing dependencies across calendar wait periods.
+- Preserved unknown timing with explicit `UNRESOLVED` states for missing durations, missing start conditions, and unavailable resource calendars.
+- Added fail-closed checks for duplicate IDs, invalid calendars, missing predecessors, negative durations, naive timestamps, and dependency cycles.
+- Added seven unit tests and one canonical fixture integration test.
+- Verified all 38 repository tests pass and compilation succeeds.
+- Verified Candidate A:
+  - arrives `2026-10-02T02:00:00Z`;
+  - completes its qualification path `2026-10-07T02:00:00Z`;
+  - is therefore not ready by the `2026-10-04` shortage date.
+
+### Next recommended action
+
+1. implement deterministic `simulateRecovery()`;
+2. compare Candidate A + qualification, original-part expedite, and production resequencing;
+3. report ready date, exposed quantity/orders, incremental cost, feasibility, and unresolved conditions;
+4. keep unresolved qualification completion explicitly non-feasible rather than estimating it.
+
+---
 
 ## 2026-09-29 — Deterministic requirement comparison
 
@@ -2746,15 +2778,14 @@ That is **Material Continuity**.
 Current recommended next step:
 
 ```text
-Define qualification calendar fixtures and implement the deterministic
-qualification dependency graph before starting Bedrock or agent orchestration.
+Implement deterministic simulateRecovery() and compare the three canonical
+recovery scenarios before starting Bedrock or agent orchestration.
 ```
 
 When that is complete, update the progress tracker and continue to:
 
 ```text
-simulateRecovery()
-→ recovery case/versioning
+recovery case/versioning
 → evidence pipeline
 → agents
 → approval/action
