@@ -1676,8 +1676,8 @@ Recommended sequence:
 - [x] Unit-test MISMATCH.
 - [x] Unit-test UNKNOWN.
 - [x] Implement qualification dependency graph.
-- [ ] Implement `simulateRecovery`.
-- [ ] Compare three recovery scenarios.
+- [x] Implement `simulateRecovery`.
+- [x] Compare three recovery scenarios.
 
 ## Phase 3 — Recovery Case
 
@@ -1786,7 +1786,7 @@ Project phase: LOCAL DETERMINISTIC CORE
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON + QUALIFICATION GRAPH COMPLETE / recovery simulation next
+Implementation: DETERMINISTIC EXPOSURE THROUGH RECOVERY SIMULATION COMPLETE / recovery-case versioning next
 ```
 
 ## Progress table
@@ -1803,7 +1803,7 @@ Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON + QUALIFI
 | Recovery option discovery | DONE | Ordered deterministic search covers network stock through resequencing; approved sufficiency stops candidate escalation; 6 dedicated tests pass |
 | Requirement comparison | DONE | Typed evidence/provenance, deterministic unit conversion, revision/applicability checks, MATCH/MISMATCH/UNKNOWN/BLOCKED, and canonical Candidate A/B decisions; 14 dedicated tests pass |
 | Qualification graph | DONE | Validated DAG, sequential/parallel scheduling, timezone-aware resource calendars, critical path, and unresolved timing propagation; Candidate A completes 2026-10-07T02:00Z |
-| Recovery simulation | TODO | P0 |
+| Recovery simulation | DONE | Deterministic timing, quantity coverage, order exposure, cost, unresolved conditions, and non-authorization across three canonical scenarios; 8 dedicated tests pass |
 | Recovery-case versioning | TODO | P0 |
 | Approval gate | TODO | P0 |
 | Action adapter | TODO | P0/P1 |
@@ -1822,6 +1822,36 @@ Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON + QUALIFI
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Deterministic recovery simulation
+
+### Completed
+
+- Added explicit simulation fixtures for:
+  - Candidate A plus qualification;
+  - original-part expedite;
+  - temporary production resequencing.
+- Implemented deterministic `simulateRecovery()` using the exposure engine's affected orders and explicit shortage timestamp.
+- Added per-order coverage allocation, remaining exposed quantity/order counts, recovery timing, delay after shortage, and incremental cost.
+- Preserved unresolved readiness as `UNRESOLVED` without estimated completion or optimistic coverage.
+- Enforced that substitute readiness cannot precede qualification completion.
+- Kept feasibility separate from authorization; every simulated scenario returns `authorized_for_execution: false`.
+- Added fail-closed validation for contradictory exposure state, duplicate scenario IDs, invalid quantities/costs, naive timestamps, and readiness before qualification completion.
+- Added seven unit tests and one canonical integration test.
+- Verified all 46 repository tests pass and compilation succeeds.
+- Verified the canonical comparison:
+  - Candidate A + qualification: ready `2026-10-07T02:00:00Z`, protects 400 units, leaves 300 units / 3 orders exposed, `PARTIAL`;
+  - original expedite: ready at shortage, protects all 700 units, `FEASIBLE` but not authorized;
+  - production resequencing: protects 200 units, leaves 500 units / 5 orders exposed, `PARTIAL`.
+
+### Next recommended action
+
+1. define the typed recovery-case schema;
+2. implement case creation and immutable version snapshots;
+3. store source versions, exposure, evidence matrix, qualification graph, and simulations;
+4. increment the case version when decision-relevant source data changes.
+
+---
 
 ## 2026-09-29 — Qualification dependency graph
 
@@ -2778,15 +2808,14 @@ That is **Material Continuity**.
 Current recommended next step:
 
 ```text
-Implement deterministic simulateRecovery() and compare the three canonical
-recovery scenarios before starting Bedrock or agent orchestration.
+Define the recovery-case schema and implement deterministic case creation,
+updates, and version increments before starting Bedrock or agent orchestration.
 ```
 
 When that is complete, update the progress tracker and continue to:
 
 ```text
-recovery case/versioning
-→ evidence pipeline
+evidence pipeline
 → agents
 → approval/action
 → UI

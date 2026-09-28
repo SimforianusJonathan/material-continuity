@@ -14,6 +14,8 @@ application requirements with revision, applicability, unit, and provenance
 checks.
 Candidate qualification dependencies can be scheduled against explicit resource
 calendars to distinguish supplier arrival from actual production readiness.
+Recovery simulation then compares substitute qualification, original expedite,
+and production resequencing without treating feasibility as authorization.
 
 ## Requirements
 
@@ -43,6 +45,12 @@ python -m core.requirements --candidate CAND-B
 
 ```powershell
 python -m core.qualification --candidate CAND-A
+```
+
+## Compare recovery scenarios
+
+```powershell
+python -m core.simulation --material MAT-BRG-001 --as-of 2026-09-29T00:00:00+00:00 --shortage-at 2026-10-04T00:00:00+00:00
 ```
 
 ## Run tests

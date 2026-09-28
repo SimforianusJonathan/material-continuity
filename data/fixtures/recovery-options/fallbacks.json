@@ -5,7 +5,7 @@
     "material_id": "MAT-BRG-001",
     "description": "Expedite original bearing shipment",
     "available_quantity": 700,
-    "ready_date": "2026-10-05",
+    "ready_date": "2026-10-04",
     "approval_status": "AVAILABLE",
     "source_reference": "supplier-expedite-fixture:SUP-ORIGINAL",
     "provider_id": "SUP-ORIGINAL",

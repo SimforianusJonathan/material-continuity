@@ -1,0 +1,42 @@
+[
+  {
+    "scenario_id": "SCN-CAND-A-QUALIFICATION",
+    "scenario_type": "SUBSTITUTE_QUALIFICATION",
+    "name": "Candidate A plus qualification",
+    "ready_at": "2026-10-07T02:00:00+00:00",
+    "available_quantity": 500,
+    "incremental_cost_cents": 300000,
+    "qualification_complete": "2026-10-07T02:00:00+00:00",
+    "unresolved_conditions": [],
+    "source_references": [
+      "supplier-fixture:CAND-AVAIL-A",
+      "qualification-graph:CAND-A"
+    ]
+  },
+  {
+    "scenario_id": "SCN-ORIGINAL-EXPEDITE",
+    "scenario_type": "ORIGINAL_EXPEDITE",
+    "name": "Original-part expedite",
+    "ready_at": "2026-10-04T00:00:00+00:00",
+    "available_quantity": 700,
+    "incremental_cost_cents": 750000,
+    "qualification_complete": null,
+    "unresolved_conditions": [],
+    "source_references": [
+      "supplier-expedite-fixture:SUP-ORIGINAL"
+    ]
+  },
+  {
+    "scenario_id": "SCN-PRODUCTION-RESEQUENCING",
+    "scenario_type": "PRODUCTION_RESEQUENCING",
+    "name": "Temporary production resequencing",
+    "ready_at": "2026-10-04T00:00:00+00:00",
+    "available_quantity": 200,
+    "incremental_cost_cents": 200000,
+    "qualification_complete": null,
+    "unresolved_conditions": [],
+    "source_references": [
+      "production-plan-fixture:RESEQ-001"
+    ]
+  }
+]
