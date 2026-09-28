@@ -1670,11 +1670,11 @@ Recommended sequence:
 - [x] Implement `getExposure`.
 - [x] Unit-test stock depletion.
 - [x] Implement `findRecoveryOptions`.
-- [ ] Implement requirement normalization.
-- [ ] Implement `compareRequirements`.
-- [ ] Unit-test MATCH.
-- [ ] Unit-test MISMATCH.
-- [ ] Unit-test UNKNOWN.
+- [x] Implement requirement normalization.
+- [x] Implement `compareRequirements`.
+- [x] Unit-test MATCH.
+- [x] Unit-test MISMATCH.
+- [x] Unit-test UNKNOWN.
 - [ ] Implement qualification dependency graph.
 - [ ] Implement `simulateRecovery`.
 - [ ] Compare three recovery scenarios.
@@ -1786,7 +1786,7 @@ Project phase: LOCAL DETERMINISTIC CORE
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: EXPOSURE + RECOVERY DISCOVERY COMPLETE / requirement comparison next
+Implementation: EXPOSURE + RECOVERY DISCOVERY + REQUIREMENT COMPARISON COMPLETE / qualification graph next
 ```
 
 ## Progress table
@@ -1798,10 +1798,10 @@ Implementation: EXPOSURE + RECOVERY DISCOVERY COMPLETE / requirement comparison 
 | GitHub organization strategy | DONE | One org |
 | Repository strategy | DONE | One monorepo |
 | Canonical demo flow | DEFINED | Based on proposal acceptance scenario |
-| Synthetic dataset | IN PROGRESS | Material, stock, 2 BOMs, 10 production orders, delayed receipt, Candidate A/B/C, approved-path checks, supplier availability, and fallbacks defined; requirement/qualification/document fixtures remain |
+| Synthetic dataset | IN PROGRESS | Material, stock, 2 BOMs, 10 production orders, delayed receipt, Candidate A/B/C, approved paths, suppliers, fallbacks, engineering requirements, and candidate evidence defined; qualification calendar and document corpus remain |
 | Deterministic exposure engine | DONE | Typed dependency-free Python engine, JSON loader, CLI, and 10 passing tests; canonical shortage is 2026-10-04 |
 | Recovery option discovery | DONE | Ordered deterministic search covers network stock through resequencing; approved sufficiency stops candidate escalation; 6 dedicated tests pass |
-| Requirement comparison | TODO | P0 |
+| Requirement comparison | DONE | Typed evidence/provenance, deterministic unit conversion, revision/applicability checks, MATCH/MISMATCH/UNKNOWN/BLOCKED, and canonical Candidate A/B decisions; 14 dedicated tests pass |
 | Qualification graph | TODO | P0 |
 | Recovery simulation | TODO | P0 |
 | Recovery-case versioning | TODO | P0 |
@@ -1822,6 +1822,38 @@ Implementation: EXPOSURE + RECOVERY DISCOVERY COMPLETE / requirement comparison 
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Deterministic requirement comparison
+
+### Completed
+
+- Added application requirement fixtures for bore diameter, dynamic load, lubricant-temperature suitability, and plant qualification release.
+- Added structured Candidate A/B evidence fixtures with document, revision, page, location, and applicability provenance.
+- Implemented typed deterministic `compareRequirements()` behavior for `MATCH`, `MISMATCH`, `UNKNOWN`, and `BLOCKED`.
+- Added deterministic unit normalization/conversion for MVP length, force, temperature, and speed units without introducing dependencies.
+- Enforced fail-closed behavior for:
+  - missing evidence;
+  - incompatible units;
+  - stale source revisions;
+  - conflicting evidence;
+  - non-applicable evidence;
+  - malformed value types;
+  - empty requirement sets.
+- Added candidate-level decisions that reject hard mismatches while keeping missing evidence and unsatisfied release gates blocked.
+- Added twelve unit tests and two canonical fixture integration tests.
+- Verified all 30 repository tests pass and compilation succeeds.
+- Verified the canonical decisions:
+  - Candidate A: bore `MATCH`, load `MATCH`, lubricant evidence `UNKNOWN`, plant release `BLOCKED`;
+  - Candidate B: bore `MISMATCH` with hard reject, load/lubricant `MATCH`, plant release `BLOCKED`.
+
+### Next recommended action
+
+1. define qualification task and resource-calendar fixtures;
+2. implement the deterministic qualification dependency graph;
+3. calculate sequential and parallel critical paths while preserving unresolved durations;
+4. connect Candidate A's evidence gap to the required temperature test and review/release chain.
+
+---
 
 ## 2026-09-29 — Deterministic recovery-option discovery
 
@@ -2714,15 +2746,14 @@ That is **Material Continuity**.
 Current recommended next step:
 
 ```text
-Add requirement/specification fixtures and implement deterministic
-compareRequirements() before starting Bedrock or agent orchestration.
+Define qualification calendar fixtures and implement the deterministic
+qualification dependency graph before starting Bedrock or agent orchestration.
 ```
 
 When that is complete, update the progress tracker and continue to:
 
 ```text
-qualification graph
-→ simulateRecovery()
+simulateRecovery()
 → recovery case/versioning
 → evidence pipeline
 → agents

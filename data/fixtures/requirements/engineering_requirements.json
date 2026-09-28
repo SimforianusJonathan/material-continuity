@@ -1,0 +1,58 @@
+[
+  {
+    "requirement_id": "REQ-BORE-001",
+    "product_id": "ASSEMBLY-A",
+    "application_id": "BEARING-SEAT-25MM",
+    "property": "BORE_DIAMETER",
+    "name": "Bore diameter",
+    "operator": "=",
+    "required_value": 25,
+    "unit": "mm",
+    "criticality": "HARD",
+    "kind": "TECHNICAL",
+    "source_document": "Engineering_Drawing_Assembly_A.pdf",
+    "source_revision": "A"
+  },
+  {
+    "requirement_id": "REQ-LOAD-001",
+    "product_id": "ASSEMBLY-A",
+    "application_id": "BEARING-SEAT-25MM",
+    "property": "DYNAMIC_LOAD",
+    "name": "Minimum dynamic load rating",
+    "operator": ">=",
+    "required_value": 14,
+    "unit": "kN",
+    "criticality": "HARD",
+    "kind": "TECHNICAL",
+    "source_document": "Bearing_Application_Requirements.pdf",
+    "source_revision": "1"
+  },
+  {
+    "requirement_id": "REQ-LUBE-TEMP-001",
+    "product_id": "ASSEMBLY-A",
+    "application_id": "HIGH-TEMP-LUBRICATION",
+    "property": "LUBRICANT_TEMPERATURE_SUITABILITY",
+    "name": "Lubricant suitability at operating temperature",
+    "operator": "=",
+    "required_value": "SUITABLE",
+    "unit": null,
+    "criticality": "CRITICAL",
+    "kind": "TECHNICAL",
+    "source_document": "Bearing_Application_Requirements.pdf",
+    "source_revision": "1"
+  },
+  {
+    "requirement_id": "REQ-RELEASE-001",
+    "product_id": "ASSEMBLY-A",
+    "application_id": "PLANT-A",
+    "property": "PLANT_QUALIFICATION_RELEASE",
+    "name": "Plant qualification release",
+    "operator": "=",
+    "required_value": true,
+    "unit": null,
+    "criticality": "CRITICAL",
+    "kind": "RELEASE_GATE",
+    "source_document": "Quality_Release_Procedure.pdf",
+    "source_revision": "3"
+  }
+]
