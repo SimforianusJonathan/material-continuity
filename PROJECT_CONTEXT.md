@@ -1701,10 +1701,11 @@ Recommended sequence:
 - [ ] Upload synthetic docs to S3.
 - [ ] Create Knowledge Base.
 - [ ] Validate retrieval.
-- [ ] Extract structured evidence.
-- [ ] Preserve revision/page/source.
-- [ ] Connect evidence output to deterministic comparison.
-- [ ] Ensure unsupported evidence remains UNKNOWN.
+- [ ] Extract structured evidence from live Knowledge Base retrieval.
+- [x] Define and validate the structured evidence extraction contract.
+- [x] Preserve revision/page/source.
+- [x] Connect structured evidence output to deterministic comparison.
+- [x] Ensure unsupported evidence remains UNKNOWN.
 
 ## Phase 5 — Evidence Specialist
 
@@ -1791,7 +1792,7 @@ Project phase: LOCAL CONTROLLED ACTION PATH
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL/ACTION PATH COMPLETE / AWS evidence pipeline blocked
+Implementation: LOCAL DETERMINISTIC WORKFLOW + DOCUMENT CORPUS + EVIDENCE CONTRACT + APPROVAL/ACTION PATH COMPLETE / AWS retrieval blocked
 ```
 
 ## Progress table
@@ -1815,6 +1816,7 @@ Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL
 | AWS access validation | BLOCKED | Local validation attempted 2026-09-29; AWS CLI/SDK, Region, credentials/profile, and resource IDs are unavailable |
 | S3 document corpus | BLOCKED | Twelve local PDFs and deterministic manifest are ready; S3 upload requires hackathon AWS access |
 | Bedrock Knowledge Base | TODO | P1 |
+| Evidence pipeline contract | DONE | Typed extraction boundary preserves provenance, excludes unsupported claims, and feeds the deterministic comparison engine; 8 dedicated tests pass |
 | Evidence Specialist | TODO | P1 |
 | Recovery Supervisor | TODO | P1 |
 | UI | TODO | P1 |
@@ -1827,6 +1829,29 @@ Implementation: DETERMINISTIC CORE + DOCUMENT CORPUS + VERSIONED CASE + APPROVAL
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Structured evidence pipeline contract
+
+### Completed
+
+- Added typed structured-extraction records with explicit support status, value/unit, applicability, confidence, and revision/page/location provenance.
+- Added fail-closed preparation that excludes unsupported claims, missing values, and incomplete provenance before deterministic comparison.
+- Connected accepted structured evidence directly to the existing requirement-comparison engine without adding a second comparison implementation.
+- Preserved wrong-revision and conflicting-evidence behavior as `UNKNOWN`.
+- Added canonical extraction fixtures for Candidate A and Candidate B aligned to the generated PDF page locations.
+- Verified Candidate A bore/load remain `MATCH`, lubricant evidence remains `UNKNOWN`, and release remains `BLOCKED`.
+- Verified Candidate B remains rejected for the hard 30 mm versus 25 mm bore mismatch.
+- Added seven unit tests and one canonical integration test.
+- Verified all 86 repository tests pass.
+
+### Next recommended action
+
+1. configure read-only hackathon AWS access and confirm the target Region and allowed services;
+2. upload the twelve-document corpus to S3 and create the Bedrock Knowledge Base;
+3. validate live retrieval returns document, revision, page, and location;
+4. map the live extraction output into the completed evidence contract.
+
+---
 
 ## 2026-09-29 — Approval-gated mock action adapter
 
