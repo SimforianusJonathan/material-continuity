@@ -1,0 +1,20 @@
+[
+  {
+    "candidate_id": "CAND-A",
+    "description": "Candidate A bearing, 25 mm bore",
+    "qualification_status": "UNQUALIFIED",
+    "plant_release": false
+  },
+  {
+    "candidate_id": "CAND-B",
+    "description": "Candidate B bearing, 30 mm bore",
+    "qualification_status": "UNQUALIFIED",
+    "plant_release": false
+  },
+  {
+    "candidate_id": "CAND-C",
+    "description": "Candidate C bearing, 25 mm bore",
+    "qualification_status": "UNQUALIFIED",
+    "plant_release": false
+  }
+]

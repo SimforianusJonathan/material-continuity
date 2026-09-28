@@ -1,0 +1,62 @@
+[
+  {
+    "option_id": "NET-STOCK-PLANT-B",
+    "category": "NETWORK_STOCK",
+    "material_id": "MAT-BRG-001",
+    "description": "Transfer approved original bearing from Plant B",
+    "available_quantity": 200,
+    "ready_date": "2026-10-06",
+    "approval_status": "APPROVED",
+    "source_reference": "network-stock-fixture:PLANT-B",
+    "provider_id": "PLANT-B",
+    "incremental_cost_cents": 150000
+  },
+  {
+    "option_id": "APPROVED-SOURCE-ORIGINAL",
+    "category": "APPROVED_SOURCE",
+    "material_id": "MAT-BRG-001",
+    "description": "Delayed original bearing from approved supplier",
+    "available_quantity": 1000,
+    "ready_date": "2026-10-20",
+    "approval_status": "APPROVED",
+    "source_reference": "purchase-order:PO-ORIGINAL-001",
+    "provider_id": "SUP-ORIGINAL",
+    "unit_cost_cents": 2400
+  },
+  {
+    "option_id": "APPROVED-EQUIVALENT-001",
+    "category": "APPROVED_EQUIVALENT",
+    "material_id": "MAT-BRG-001",
+    "description": "Approved equivalent with no available inventory",
+    "available_quantity": 0,
+    "ready_date": "2026-10-03",
+    "approval_status": "APPROVED",
+    "source_reference": "approved-equivalent-fixture:EQ-001",
+    "provider_id": "SUP-EQUIVALENT"
+  },
+  {
+    "option_id": "ALT-BOM-ASSEMBLY-A",
+    "category": "ALTERNATE_BOM",
+    "material_id": "MAT-BRG-001",
+    "description": "Alternate BOM pending engineering approval",
+    "available_quantity": 400,
+    "ready_date": "2026-10-03",
+    "approval_status": "NOT_APPROVED",
+    "source_reference": "bom-fixture:ASSEMBLY-A-ALT",
+    "valid_from": "2026-09-01",
+    "valid_until": "2026-12-31"
+  },
+  {
+    "option_id": "DEVIATION-CAND-C",
+    "category": "VALID_DEVIATION",
+    "material_id": "MAT-BRG-001",
+    "description": "Previously approved deviation for Candidate C",
+    "available_quantity": 300,
+    "ready_date": "2026-10-03",
+    "approval_status": "APPROVED",
+    "source_reference": "deviation-fixture:DEV-C-001",
+    "candidate_id": "CAND-C",
+    "valid_from": "2026-08-01",
+    "valid_until": "2026-09-25"
+  }
+]

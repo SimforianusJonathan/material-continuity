@@ -1,0 +1,25 @@
+[
+  {
+    "option_id": "EXPEDITE-ORIGINAL-001",
+    "category": "ORIGINAL_EXPEDITE",
+    "material_id": "MAT-BRG-001",
+    "description": "Expedite original bearing shipment",
+    "available_quantity": 700,
+    "ready_date": "2026-10-05",
+    "approval_status": "AVAILABLE",
+    "source_reference": "supplier-expedite-fixture:SUP-ORIGINAL",
+    "provider_id": "SUP-ORIGINAL",
+    "incremental_cost_cents": 750000
+  },
+  {
+    "option_id": "RESEQUENCE-PRODUCTION-001",
+    "category": "PRODUCTION_RESEQUENCING",
+    "material_id": "MAT-BRG-001",
+    "description": "Temporarily resequence production to protect priority orders",
+    "available_quantity": 200,
+    "ready_date": "2026-10-04",
+    "approval_status": "AVAILABLE",
+    "source_reference": "production-plan-fixture:RESEQ-001",
+    "incremental_cost_cents": 200000
+  }
+]

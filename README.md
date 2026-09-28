@@ -5,9 +5,10 @@ critical manufacturing material disruptions. The agent coordinates the
 investigation, deterministic services perform calculations and enforce
 constraints, and humans retain release authority.
 
-The current implementation is the first local deterministic slice: a synthetic
-bearing scenario and an exposure engine that calculates the first shortage date
-and affected production orders.
+The current implementation contains the first two local deterministic slices: a
+synthetic bearing scenario, an exposure engine that calculates the first
+shortage date and affected production orders, and ordered recovery-option
+discovery that exhausts approved paths before surfacing unqualified candidates.
 
 ## Requirements
 
@@ -18,6 +19,12 @@ and affected production orders.
 
 ```powershell
 python -m core.exposure --material MAT-BRG-001 --as-of 2026-09-29T00:00:00+00:00
+```
+
+## Run recovery-option discovery
+
+```powershell
+python -m core.recovery_options --material MAT-BRG-001 --required-quantity 700 --need-by 2026-10-04 --as-of 2026-09-29
 ```
 
 ## Run tests

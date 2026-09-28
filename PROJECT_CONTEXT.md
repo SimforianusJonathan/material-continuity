@@ -1656,12 +1656,12 @@ Recommended sequence:
 - [x] Define current stock.
 - [x] Define production demand.
 - [x] Define delayed original receipt.
-- [ ] Define Candidate A.
-- [ ] Define Candidate B hard mismatch.
-- [ ] Define Candidate C / optional third path.
+- [x] Define Candidate A.
+- [x] Define Candidate B hard mismatch.
+- [x] Define Candidate C / optional third path.
 - [x] Define 2 BOMs.
 - [x] Define 10 production orders.
-- [ ] Define supplier availability.
+- [x] Define supplier availability.
 - [ ] Define qualification test calendar.
 - [ ] Define 12 documents.
 
@@ -1669,7 +1669,7 @@ Recommended sequence:
 
 - [x] Implement `getExposure`.
 - [x] Unit-test stock depletion.
-- [ ] Implement `findRecoveryOptions`.
+- [x] Implement `findRecoveryOptions`.
 - [ ] Implement requirement normalization.
 - [ ] Implement `compareRequirements`.
 - [ ] Unit-test MATCH.
@@ -1786,7 +1786,7 @@ Project phase: LOCAL DETERMINISTIC CORE
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: EXPOSURE ENGINE COMPLETE / remaining canonical fixtures next
+Implementation: EXPOSURE + RECOVERY DISCOVERY COMPLETE / requirement comparison next
 ```
 
 ## Progress table
@@ -1798,9 +1798,9 @@ Implementation: EXPOSURE ENGINE COMPLETE / remaining canonical fixtures next
 | GitHub organization strategy | DONE | One org |
 | Repository strategy | DONE | One monorepo |
 | Canonical demo flow | DEFINED | Based on proposal acceptance scenario |
-| Synthetic dataset | IN PROGRESS | Material, stock, 2 BOMs, 10 production orders, and delayed receipt defined; candidate/supplier/qualification/document fixtures remain |
+| Synthetic dataset | IN PROGRESS | Material, stock, 2 BOMs, 10 production orders, delayed receipt, Candidate A/B/C, approved-path checks, supplier availability, and fallbacks defined; requirement/qualification/document fixtures remain |
 | Deterministic exposure engine | DONE | Typed dependency-free Python engine, JSON loader, CLI, and 10 passing tests; canonical shortage is 2026-10-04 |
-| Recovery option discovery | TODO | P0 |
+| Recovery option discovery | DONE | Ordered deterministic search covers network stock through resequencing; approved sufficiency stops candidate escalation; 6 dedicated tests pass |
 | Requirement comparison | TODO | P0 |
 | Qualification graph | TODO | P0 |
 | Recovery simulation | TODO | P0 |
@@ -1822,6 +1822,40 @@ Implementation: EXPOSURE ENGINE COMPLETE / remaining canonical fixtures next
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Deterministic recovery-option discovery
+
+### Completed
+
+- Added Candidate A, Candidate B, and Candidate C master fixtures plus supplier availability, ETA, quantity, quote, and source references.
+- Added canonical recovery fixtures for:
+  - network stock;
+  - approved original source;
+  - approved equivalent;
+  - alternate BOM;
+  - expired deviation;
+  - original-part expedite;
+  - production resequencing.
+- Implemented typed, deterministic `findRecoveryOptions()` behavior with the required search order.
+- Added quantity coverage across approved paths and early termination when approved options fully cover demand.
+- Ensured unqualified candidates and fallbacks are surfaced only after timely approved paths are exhausted.
+- Preserved availability versus readiness by reporting candidate ETA separately from approval status and by marking whether each option arrives by the need date.
+- Added an auditable per-category search trace and fail-closed validation for duplicate IDs, invalid quantities/costs, and invalid request dates.
+- Added five unit tests and one canonical fixture integration test.
+- Verified all 16 repository tests pass, compilation succeeds, and the canonical search returns:
+  - approved coverage: 0 of 700;
+  - Candidate A/B: arrive by need date but remain unqualified;
+  - Candidate C: arrives after need date and remains unqualified;
+  - original expedite and production resequencing as non-authorized fallbacks.
+
+### Next recommended action
+
+1. add application requirement and candidate specification fixtures with source revision/page provenance;
+2. implement deterministic unit normalization;
+3. implement `compareRequirements()` for MATCH, MISMATCH, UNKNOWN, and BLOCKED;
+4. prove Candidate B is rejected for the hard bore mismatch and Candidate A remains UNKNOWN for missing lubricant-temperature evidence.
+
+---
 
 ## 2026-09-29 — Local bootstrap and deterministic exposure engine
 
@@ -2680,15 +2714,14 @@ That is **Material Continuity**.
 Current recommended next step:
 
 ```text
-Complete the recovery-option fixtures and implement deterministic
-findRecoveryOptions() before starting Bedrock or agent orchestration.
+Add requirement/specification fixtures and implement deterministic
+compareRequirements() before starting Bedrock or agent orchestration.
 ```
 
 When that is complete, update the progress tracker and continue to:
 
 ```text
-compareRequirements()
-→ qualification graph
+qualification graph
 → simulateRecovery()
 → recovery case/versioning
 → evidence pipeline
