@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "corpus_id": "material-continuity-synthetic-v1",
+  "classification": "Synthetic hackathon fixture",
+  "documents": [
+    {
+      "filename": "Candidate_A_Datasheet_Rev2.pdf",
+      "document_id": "DS-CAND-A",
+      "title": "Candidate A Precision Bearing Datasheet",
+      "revision": "2",
+      "effective_date": "2026-09-15",
+      "owner": "Supplier Alpha Engineering",
+      "page_count": 4,
+      "sha256": "6121a28d0509d35b3ddec472c8c223e08848937b3b70cf3f94800e37ebd45d83"
+    },
+    {
+      "filename": "Candidate_A_Certificate.pdf",
+      "document_id": "COC-CAND-A-0926",
+      "title": "Candidate A Certificate of Conformance",
+      "revision": "1",
+      "effective_date": "2026-09-18",
+      "owner": "Supplier Alpha Quality",
+      "page_count": 2,
+      "sha256": "2374e9c0040ccac4344abfc47fdffb74d80b3ff1b71b60408685970a37682481"
+    },
+    {
+      "filename": "Candidate_B_Datasheet.pdf",
+      "document_id": "DS-CAND-B",
+      "title": "Candidate B Precision Bearing Datasheet",
+      "revision": "1",
+      "effective_date": "2026-09-12",
+      "owner": "Supplier Beta Engineering",
+      "page_count": 4,
+      "sha256": "9ae0f81b0d9ff60912ce727cc392c4962c915102410fb5b7b56a8039c10e7191"
+    },
+    {
+      "filename": "Candidate_C_Datasheet.pdf",
+      "document_id": "DS-CAND-C",
+      "title": "Candidate C Bearing Preliminary Datasheet",
+      "revision": "1",
+      "effective_date": "2026-08-01",
+      "owner": "Supplier Gamma Engineering",
+      "page_count": 3,
+      "sha256": "f9750fd1ae197791f96bb6dac7897ff3fe26acf1ef47357f691a3629a5b1c1e7"
+    },
+    {
+      "filename": "Engineering_Drawing_Assembly_A.pdf",
+      "document_id": "DWG-ASSY-A",
+      "title": "Assembly A Bearing Interface Drawing",
+      "revision": "A",
+      "effective_date": "2026-07-14",
+      "owner": "Plant-A Mechanical Engineering",
+      "page_count": 3,
+      "sha256": "23ed76e9b1428a5406c4823d681badc64e0be1cf444586cfc64c7cff284d5181"
+    },
+    {
+      "filename": "Engineering_Drawing_Assembly_B.pdf",
+      "document_id": "DWG-ASSY-B",
+      "title": "Assembly B Bearing Interface Drawing",
+      "revision": "A",
+      "effective_date": "2026-07-14",
+      "owner": "Plant-A Mechanical Engineering",
+      "page_count": 3,
+      "sha256": "e911bf88d5aa496f8b1a6d2c774999a4626642866c7424915dc2208a7adfe19f"
+    },
+    {
+      "filename": "Bearing_Application_Requirements.pdf",
+      "document_id": "REQ-BRG-APP",
+      "title": "Bearing Application Requirements",
+      "revision": "1",
+      "effective_date": "2026-07-20",
+      "owner": "Plant-A Product Engineering",
+      "page_count": 3,
+      "sha256": "4dcdbd4ddc17c9bed281dd80975eeeb4271eab15548ca3b022eba2152ddbbb40"
+    },
+    {
+      "filename": "Qualification_SOP_Temperature.pdf",
+      "document_id": "SOP-QUAL-TEMP",
+      "title": "Lubricant Temperature Qualification SOP",
+      "revision": "2",
+      "effective_date": "2026-08-10",
+      "owner": "Plant-A Qualification Laboratory",
+      "page_count": 3,
+      "sha256": "9c30a3c6a46463532c023eacfd6834c1b9a8f2de03eb65c81be17635b796d572"
+    },
+    {
+      "filename": "Qualification_SOP_Load.pdf",
+      "document_id": "SOP-QUAL-LOAD",
+      "title": "Bearing Load Verification SOP",
+      "revision": "1",
+      "effective_date": "2026-08-10",
+      "owner": "Plant-A Qualification Laboratory",
+      "page_count": 3,
+      "sha256": "05ae495795f411ff0e01cafe23d0ceae7c0d0715585e5e4fd03a82328e7148b4"
+    },
+    {
+      "filename": "Approved_Supplier_List.pdf",
+      "document_id": "ASL-BRG-001",
+      "title": "Approved Supplier List - Bearing Family",
+      "revision": "5",
+      "effective_date": "2026-09-01",
+      "owner": "Plant-A Supplier Quality",
+      "page_count": 2,
+      "sha256": "f21fb9b087880b18ace1f6baf409096193bc6fd0eb6a9ce912bb38d0a9433840"
+    },
+    {
+      "filename": "Existing_Deviation.pdf",
+      "document_id": "DEV-C-001",
+      "title": "Temporary Material Deviation - Candidate C",
+      "revision": "1",
+      "effective_date": "2026-08-01",
+      "owner": "Plant-A Quality",
+      "page_count": 2,
+      "sha256": "5a7d584e56c0999a8d7e588c68ce6076673bd19d498179833e9e063842482cc2"
+    },
+    {
+      "filename": "Quality_Release_Procedure.pdf",
+      "document_id": "PROC-QA-RELEASE",
+      "title": "Plant-A Alternative Material Release Procedure",
+      "revision": "3",
+      "effective_date": "2026-09-05",
+      "owner": "Plant-A Quality Systems",
+      "page_count": 3,
+      "sha256": "fb447600deb205c47c40c36fe52fbfb7eee1a7e0ed6cdc61c2a00cca9f4f2950"
+    }
+  ]
+}

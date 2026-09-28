@@ -1379,6 +1379,11 @@ Perform early before committing architecture details:
 - [ ] Identify allowed model(s).
 - [ ] Record all required environment variables.
 
+Validation attempt on 2026-09-29 is currently blocked: the local environment has
+no AWS CLI, AWS SDK, configured AWS Region/profile/credentials, Bedrock model or
+Knowledge Base ID, or S3 document bucket. No AWS checklist item is considered
+complete until hackathon account access is supplied and verified read-only.
+
 If AgentCore access is unavailable, preserve the logical architecture and use a compatible fallback runtime rather than rewriting the product concept.
 
 ---
@@ -1663,7 +1668,7 @@ Recommended sequence:
 - [x] Define 10 production orders.
 - [x] Define supplier availability.
 - [x] Define qualification test calendar.
-- [ ] Define 12 documents.
+- [x] Define 12 documents.
 
 ## Phase 2 — Deterministic Core
 
@@ -1782,11 +1787,11 @@ Update this section after every meaningful work session.
 ## Overall status
 
 ```text
-Project phase: LOCAL DETERMINISTIC CORE
+Project phase: LOCAL EVIDENCE PIPELINE
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE COMPLETE / local evidence corpus next
+Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE + LOCAL DOCUMENT CORPUS COMPLETE / AWS access blocked
 ```
 
 ## Progress table
@@ -1798,7 +1803,7 @@ Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE COMPLETE / local ev
 | GitHub organization strategy | DONE | One org |
 | Repository strategy | DONE | One monorepo |
 | Canonical demo flow | DEFINED | Based on proposal acceptance scenario |
-| Synthetic dataset | IN PROGRESS | Material, stock, 2 BOMs, 10 production orders, delayed receipt, Candidate A/B/C, approved paths, suppliers, fallbacks, requirements, evidence, qualification tasks, and resource calendars defined; document corpus remains |
+| Synthetic dataset | DONE | Material, stock, 2 BOMs, 10 production orders, delayed receipt, Candidate A/B/C, approved paths, suppliers, fallbacks, requirements, evidence, qualification tasks, resource calendars, and 12-document corpus defined |
 | Deterministic exposure engine | DONE | Typed dependency-free Python engine, JSON loader, CLI, and 10 passing tests; canonical shortage is 2026-10-04 |
 | Recovery option discovery | DONE | Ordered deterministic search covers network stock through resequencing; approved sufficiency stops candidate escalation; 6 dedicated tests pass |
 | Requirement comparison | DONE | Typed evidence/provenance, deterministic unit conversion, revision/applicability checks, MATCH/MISMATCH/UNKNOWN/BLOCKED, and canonical Candidate A/B decisions; 14 dedicated tests pass |
@@ -1807,8 +1812,8 @@ Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE COMPLETE / local ev
 | Recovery-case versioning | DONE | Immutable typed snapshots, canonical SHA-256 hash chain, no-op detection, source-change increments, and version-bound approval/action storage; 9 dedicated tests pass |
 | Approval gate | TODO | P0 |
 | Action adapter | TODO | P0/P1 |
-| AWS access validation | TODO | Do early |
-| S3 document corpus | TODO | P1 |
+| AWS access validation | BLOCKED | Local validation attempted 2026-09-29; AWS CLI/SDK, Region, credentials/profile, and resource IDs are unavailable |
+| S3 document corpus | BLOCKED | Twelve local PDFs and deterministic manifest are ready; S3 upload requires hackathon AWS access |
 | Bedrock Knowledge Base | TODO | P1 |
 | Evidence Specialist | TODO | P1 |
 | Recovery Supervisor | TODO | P1 |
@@ -1822,6 +1827,29 @@ Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE COMPLETE / local ev
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Synthetic evidence document corpus
+
+### Completed
+
+- Added twelve text-based synthetic PDF fixtures under `data/documents/`, covering candidate datasheets/certificate, Assembly A/B drawings, application requirements, qualification SOPs, supplier approval status, an expired deviation, and the Quality release procedure.
+- Added explicit document IDs, revisions, effective dates, owners, synthetic-data classification, and stable `Page X of N` markers on every page.
+- Preserved canonical evidence locations: Candidate A bore on page 2, load on page 3, and missing application-specific lubricant evidence on page 4; Candidate B bore on page 2, load on page 3, and lubricant suitability on page 4.
+- Added a deterministic generator and SHA-256 manifest without adding an application runtime dependency.
+- Added semantic validation for all 35 pages, including stable evidence fragments and provenance markers.
+- Rendered and visually inspected all 35 pages; no clipping, overflow, or unreadable layout was observed.
+- Added three dependency-free integration tests for corpus completeness, checksums, metadata, and unexpected PDFs.
+- Verified all 58 repository tests pass.
+- Attempted read-only AWS validation. It is blocked because the environment has no AWS CLI/SDK, configured Region/profile/credentials, Bedrock resource IDs, or S3 bucket configuration. No AWS resource was created or changed.
+
+### Next recommended action
+
+1. obtain/configure read-only hackathon AWS access and confirm Region, Bedrock, AgentCore, Knowledge Base, S3, Lambda, EventBridge, and CloudWatch availability;
+2. upload the verified corpus to S3 and validate revision/page-aware retrieval;
+3. while AWS access remains blocked, implement the P0 approval gate against the existing versioned recovery-case model;
+4. connect retrieved structured evidence to the deterministic comparison engine.
+
+---
 
 ## 2026-09-29 — Versioned recovery case
 
@@ -2850,16 +2878,17 @@ That is **Material Continuity**.
 Current recommended next step:
 
 ```text
-Create the twelve-document local synthetic evidence corpus, then validate AWS/S3/
-Knowledge Base access before implementing retrieval or agent orchestration.
+Configure read-only hackathon AWS access, validate Region and service availability,
+then upload the verified twelve-document corpus and test revision/page provenance.
 ```
 
-When that is complete, update the progress tracker and continue to:
+While AWS access remains blocked, continue the local P0 path without changing the architecture:
 
 ```text
-evidence pipeline retrieval
+approval gate
+→ action adapter
+→ evidence pipeline retrieval when AWS access is available
 → Evidence Specialist
 → Recovery Supervisor
-→ approval/action
 → UI
 ```
