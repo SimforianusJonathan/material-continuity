@@ -1681,15 +1681,15 @@ Recommended sequence:
 
 ## Phase 3 — Recovery Case
 
-- [ ] Define recovery-case schema.
-- [ ] Implement case creation.
-- [ ] Implement case updates.
-- [ ] Implement version increment.
-- [ ] Store source versions.
-- [ ] Store evidence matrix.
-- [ ] Store simulation results.
-- [ ] Store approvals.
-- [ ] Store action receipts.
+- [x] Define recovery-case schema.
+- [x] Implement case creation.
+- [x] Implement case updates.
+- [x] Implement version increment.
+- [x] Store source versions.
+- [x] Store evidence matrix.
+- [x] Store simulation results.
+- [x] Store approvals.
+- [x] Store action receipts.
 
 ## Phase 4 — Evidence Pipeline
 
@@ -1786,7 +1786,7 @@ Project phase: LOCAL DETERMINISTIC CORE
 Proposal: COMPLETE
 Hackathon qualification: FINAL STAGE
 GitHub strategy: DECIDED — one organization, one monorepo
-Implementation: DETERMINISTIC EXPOSURE THROUGH RECOVERY SIMULATION COMPLETE / recovery-case versioning next
+Implementation: DETERMINISTIC CORE + VERSIONED RECOVERY CASE COMPLETE / local evidence corpus next
 ```
 
 ## Progress table
@@ -1804,7 +1804,7 @@ Implementation: DETERMINISTIC EXPOSURE THROUGH RECOVERY SIMULATION COMPLETE / re
 | Requirement comparison | DONE | Typed evidence/provenance, deterministic unit conversion, revision/applicability checks, MATCH/MISMATCH/UNKNOWN/BLOCKED, and canonical Candidate A/B decisions; 14 dedicated tests pass |
 | Qualification graph | DONE | Validated DAG, sequential/parallel scheduling, timezone-aware resource calendars, critical path, and unresolved timing propagation; Candidate A completes 2026-10-07T02:00Z |
 | Recovery simulation | DONE | Deterministic timing, quantity coverage, order exposure, cost, unresolved conditions, and non-authorization across three canonical scenarios; 8 dedicated tests pass |
-| Recovery-case versioning | TODO | P0 |
+| Recovery-case versioning | DONE | Immutable typed snapshots, canonical SHA-256 hash chain, no-op detection, source-change increments, and version-bound approval/action storage; 9 dedicated tests pass |
 | Approval gate | TODO | P0 |
 | Action adapter | TODO | P0/P1 |
 | AWS access validation | TODO | Do early |
@@ -1822,6 +1822,36 @@ Implementation: DETERMINISTIC EXPOSURE THROUGH RECOVERY SIMULATION COMPLETE / re
 # 27. Session Progress Log
 
 Append new entries; do not overwrite old ones.
+
+## 2026-09-29 — Versioned recovery case
+
+### Completed
+
+- Added a typed recovery-case aggregate containing immutable decision versions plus separately stored approvals and action receipts.
+- Assembled exposure, recovery discovery, Candidate A/B evidence decisions, Candidate A qualification graph, scenario simulation, and source versions into the canonical case.
+- Implemented deterministic SHA-256 case hashes over canonical JSON decision content, case identity, version, and previous hash.
+- Implemented immutable version chaining and explicit change reasons.
+- Implemented no-op detection so unchanged decision content does not increment the case version.
+- Implemented source-version change detection and changed-source reporting.
+- Kept approvals and action receipts bound to exact case version/hash without incrementing the decision version when records are appended.
+- Added validation for version/hash references, audit chronology, duplicate approval/action IDs, and duplicate action idempotency keys.
+- Deliberately kept persistence backend selection open; the current implementation is a dependency-free immutable domain model with JSON-safe serialization.
+- Added eight unit tests and one canonical integration test.
+- Verified all 55 repository tests pass and compilation succeeds.
+- Demonstrated the stale-approval story:
+  - approval targets Case Version 1 / its exact hash;
+  - Candidate A datasheet changes from revision 2 to revision 3;
+  - case increments to Version 2 with a chained, different hash;
+  - the previous approval remains auditable but no longer matches the current version/hash.
+
+### Next recommended action
+
+1. create the twelve-document local synthetic corpus with explicit revision/page markers;
+2. validate AWS account, Region, Bedrock model, S3, and Knowledge Base availability;
+3. upload the corpus to S3 and validate retrieval provenance;
+4. connect retrieved structured evidence to the existing deterministic comparison engine.
+
+---
 
 ## 2026-09-29 — Deterministic recovery simulation
 
@@ -2067,6 +2097,18 @@ Use this section for small ADRs.
 **Decision:** `createQualificationTask()` may produce a mock QMS task instead of live SAP write-back.
 
 **Reason:** Proposal explicitly places live SAP write-back after MVP.
+
+---
+
+## ADR-006 — Canonical hash-bound case versions
+
+**Status:** Accepted
+
+**Decision:** Represent decision state as immutable recovery-case versions. Compute each `case_hash` using SHA-256 over canonical JSON containing the case ID, case version, previous case hash, and complete decision-relevant content. Store approvals and action receipts outside the version payload while binding each record to an exact case version/hash.
+
+**Reason:** This provides reproducible hashes, an auditable version chain, no-op update detection, and stale-authorization visibility without causing an approval append to invalidate itself.
+
+**Consequences:** Any change to decision content or tracked source-version records creates a new case version. Timestamp-only case access and approval/action appends do not. Persistence technology remains undecided and can store the same immutable domain model later.
 
 ---
 
@@ -2484,8 +2526,8 @@ Track unresolved architecture decisions here.
 - [ ] Which Bedrock model is permitted?
 - [ ] Are AgentCore Runtime and Gateway available in the hackathon account?
 - [ ] Will Knowledge Base ingest PDFs directly as expected?
-- [ ] How will case hash be calculated?
-- [ ] Which source changes trigger a new case version?
+- [x] Case hash uses SHA-256 over canonical JSON decision content plus case identity, version, and previous hash (ADR-006).
+- [x] Any tracked source-version or decision-content change creates a new version; exact no-ops do not (ADR-006).
 - [ ] Will scenario ranking be explicit weighted logic or non-ranked presentation?
 - [ ] How realistic should supplier cost fixtures be?
 - [ ] What user roles are needed in the UI?
@@ -2808,15 +2850,16 @@ That is **Material Continuity**.
 Current recommended next step:
 
 ```text
-Define the recovery-case schema and implement deterministic case creation,
-updates, and version increments before starting Bedrock or agent orchestration.
+Create the twelve-document local synthetic evidence corpus, then validate AWS/S3/
+Knowledge Base access before implementing retrieval or agent orchestration.
 ```
 
 When that is complete, update the progress tracker and continue to:
 
 ```text
-evidence pipeline
-→ agents
+evidence pipeline retrieval
+→ Evidence Specialist
+→ Recovery Supervisor
 → approval/action
 → UI
 ```

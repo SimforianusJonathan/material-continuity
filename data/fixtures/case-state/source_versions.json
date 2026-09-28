@@ -1,0 +1,58 @@
+[
+  {
+    "source_id": "SRC-STOCK-MAT-BRG-001",
+    "source_type": "STOCK",
+    "version": "2026-09-29T00:00:00Z",
+    "observed_at": "2026-09-29T00:00:00+00:00",
+    "content_hash": null
+  },
+  {
+    "source_id": "SRC-PRODUCTION-PLAN",
+    "source_type": "PRODUCTION_PLAN",
+    "version": "1",
+    "observed_at": "2026-09-29T00:05:00+00:00",
+    "content_hash": null
+  },
+  {
+    "source_id": "SRC-SUPPLIER-AVAILABILITY",
+    "source_type": "SUPPLIER",
+    "version": "2026-09-29T02:10:00Z",
+    "observed_at": "2026-09-29T02:10:00+00:00",
+    "content_hash": null
+  },
+  {
+    "source_id": "SRC-CAND-A-DATASHEET",
+    "source_type": "DOCUMENT",
+    "version": "2",
+    "observed_at": "2026-09-29T02:15:00+00:00",
+    "content_hash": null
+  },
+  {
+    "source_id": "SRC-CAND-B-DATASHEET",
+    "source_type": "DOCUMENT",
+    "version": "1",
+    "observed_at": "2026-09-29T02:15:00+00:00",
+    "content_hash": null
+  },
+  {
+    "source_id": "SRC-ENGINEERING-REQUIREMENTS",
+    "source_type": "DOCUMENT",
+    "version": "1",
+    "observed_at": "2026-09-29T02:20:00+00:00",
+    "content_hash": null
+  },
+  {
+    "source_id": "SRC-QMS-CANDIDATE-STATUS",
+    "source_type": "QMS",
+    "version": "2026-09-29",
+    "observed_at": "2026-09-29T02:25:00+00:00",
+    "content_hash": null
+  },
+  {
+    "source_id": "SRC-QUALIFICATION-CALENDAR",
+    "source_type": "RESOURCE_CALENDAR",
+    "version": "1",
+    "observed_at": "2026-09-29T02:30:00+00:00",
+    "content_hash": null
+  }
+]

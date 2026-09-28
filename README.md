@@ -16,6 +16,9 @@ Candidate qualification dependencies can be scheduled against explicit resource
 calendars to distinguish supplier arrival from actual production readiness.
 Recovery simulation then compares substitute qualification, original expedite,
 and production resequencing without treating feasibility as authorization.
+These deterministic outputs can be assembled into immutable, hash-bound
+recovery-case versions with approvals and actions referencing the exact version
+reviewed.
 
 ## Requirements
 
@@ -51,6 +54,12 @@ python -m core.qualification --candidate CAND-A
 
 ```powershell
 python -m core.simulation --material MAT-BRG-001 --as-of 2026-09-29T00:00:00+00:00 --shortage-at 2026-10-04T00:00:00+00:00
+```
+
+## Build the canonical recovery case
+
+```powershell
+python -m core.case_state --case-id CASE-001
 ```
 
 ## Run tests
